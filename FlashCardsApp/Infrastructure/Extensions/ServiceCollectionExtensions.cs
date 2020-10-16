@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using FlashCardsApp.Data;
 using FlashCardsApp.Data.Models;
 using FlashCardsApp.Infrastructure.Filters;
+using FlashCardsApp.Services.Identity;
+using FlashCardsApp.Services.Decks;
 
 namespace FlashCardsApp.Infrastructure.Extensions
 {
@@ -43,20 +45,20 @@ namespace FlashCardsApp.Infrastructure.Extensions
             return services;
         }
 
-        //public static IServiceCollection AddCorsWithOptions(this IServiceCollection services)
-        //{
-        //    services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
-        //    {
-        //        builder
-        //            .WithOrigins("http://localhost:3000")
-        //            .AllowAnyHeader()
-        //            .AllowAnyMethod()
-        //            .AllowCredentials()
-        //            .SetIsOriginAllowed((host) => true);
-        //    }));
+        public static IServiceCollection AddCorsWithOptions(this IServiceCollection services)
+        {
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .WithOrigins()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((host) => true);
+            }));
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddJwtAuthentication(
             this IServiceCollection services,
@@ -91,9 +93,9 @@ namespace FlashCardsApp.Infrastructure.Extensions
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            //services
-            //    .AddTransient<IIdentityService, IdentityService>()
-            //    .AddTransient<IDecksService, DecksService>()
+            services
+                .AddTransient<IIdentityService, IdentityService>()
+                .AddTransient<IDecksService, DecksService>();
             //    .AddTransient<ICardsService, CardsService>();
 
             return services;

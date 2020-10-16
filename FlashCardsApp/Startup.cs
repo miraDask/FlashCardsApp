@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +24,7 @@ namespace FlashCardsApp
             services
                  .AddDatabase(this.Configuration)
                  .AddIdentity()
-                 //.AddCorsWithOptions()
+                 .AddCorsWithOptions()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration))
                  .AddApplicationServices()
                  .AddStaticFiles()
@@ -51,6 +50,9 @@ namespace FlashCardsApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthorization();
+            app.UseCors("CorsPolicy");
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
