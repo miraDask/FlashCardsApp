@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlashCardsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201016004125_Initial")]
+    [Migration("20201016183415_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
