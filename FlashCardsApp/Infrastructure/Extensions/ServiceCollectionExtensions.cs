@@ -43,20 +43,20 @@ namespace FlashCardsApp.Infrastructure.Extensions
             return services;
         }
 
-        //public static IServiceCollection AddCorsWithOptions(this IServiceCollection services)
-        //{
-        //    services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
-        //    {
-        //        builder
-        //            .WithOrigins("http://localhost:3000")
-        //            .AllowAnyHeader()
-        //            .AllowAnyMethod()
-        //            .AllowCredentials()
-        //            .SetIsOriginAllowed((host) => true);
-        //    }));
+        public static IServiceCollection AddCorsWithOptions(this IServiceCollection services)
+        {
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((host) => true);
+            }));
 
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddJwtAuthentication(
             this IServiceCollection services,
