@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using FlashCardsApp.Data;
 using FlashCardsApp.Data.Models;
 using FlashCardsApp.Infrastructure.Filters;
+using FlashCardsApp.Services.Identity;
+using FlashCardsApp.Services.Decks;
 
 namespace FlashCardsApp.Infrastructure.Extensions
 {
@@ -48,7 +50,7 @@ namespace FlashCardsApp.Infrastructure.Extensions
             services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
             {
                 builder
-                    .AllowAnyOrigin()
+                    .WithOrigins()
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
@@ -91,9 +93,9 @@ namespace FlashCardsApp.Infrastructure.Extensions
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            //services
-            //    .AddTransient<IIdentityService, IdentityService>()
-            //    .AddTransient<IDecksService, DecksService>()
+            services
+                .AddTransient<IIdentityService, IdentityService>()
+                .AddTransient<IDecksService, DecksService>();
             //    .AddTransient<ICardsService, CardsService>();
 
             return services;
