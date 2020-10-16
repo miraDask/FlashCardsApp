@@ -11,11 +11,7 @@ const LoginForm = () => {
 				<input type="text" className="form-control pb_height-50 reverse" placeholder="Password" />
 			</div>
 			<div className="form-group">
-				<input
-					type="submit"
-					className="btn btn-primary btn-lg btn-block pb_btn-pill  btn-shadow-blue"
-					value="Login"
-				/>
+				<input type="submit" className="btn btn-info btn-lg btn-block" value="Login" />
 			</div>
 		</form>
 	);
