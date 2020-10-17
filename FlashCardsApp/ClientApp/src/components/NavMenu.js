@@ -1,55 +1,58 @@
-import React, { Component } from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Context } from '../providers/global-context.provider';
 import CreateDropdown from './CreateDropdown';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
-export class NavMenu extends Component {
-	static displayName = NavMenu.name;
+const NavMenu = () => {
+	const [ collapsed, setCollapsed ] = useState(false);
+	const { isLoggedIn, logout } = useContext(Context);
+	const history = useHistory();
 
-	constructor(props) {
-		super(props);
+	const toggleNavbar = () => {
+		setCollapsed(!collapsed);
+	};
 
-		this.toggleNavbar = this.toggleNavbar.bind(this);
-		this.state = {
-			collapsed: true
-		};
-	}
+	const handleLogout = () => {
+		logout();
+		history.push('/');
+	};
 
-	toggleNavbar() {
-		this.setState({
-			collapsed: !this.state.collapsed
-		});
-	}
-
-	render() {
-		return (
-			<header>
-				<Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-					<Container>
-						<NavbarBrand tag={Link} to="/">
-							FlashCardsApp
-						</NavbarBrand>
-						<NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-						<Collapse
-							className="d-sm-inline-flex flex-sm-row-reverse"
-							isOpen={!this.state.collapsed}
-							navbar
-						>
-							<ul className="navbar-nav flex-grow">
-								<NavItem>
-									<CreateDropdown />
-								</NavItem>
+	return (
+		<header>
+			<Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+				<Container>
+					<NavbarBrand tag={Link} to="/">
+						Home
+					</NavbarBrand>
+					<NavbarToggler onClick={toggleNavbar} className="mr-2" />
+					<Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
+						<ul className="navbar-nav flex-grow">
+							<NavItem>
+								<CreateDropdown />
+							</NavItem>
+							{!isLoggedIn ? (
 								<NavItem>
 									<NavLink tag={Link} className="text-dark" to="/register">
 										Register
 									</NavLink>
 								</NavItem>
-							</ul>
-						</Collapse>
-					</Container>
-				</Navbar>
-			</header>
-		);
-	}
-}
+							) : (
+								<NavItem className="ml-2">
+									<NavLink tag={Link} className="text-dark" onClick={handleLogout}>
+										Logout
+									</NavLink>
+								</NavItem>
+							)}
+						</ul>
+					</Collapse>
+				</Container>
+			</Navbar>
+		</header>
+	);
+};
+
+export default NavMenu;
