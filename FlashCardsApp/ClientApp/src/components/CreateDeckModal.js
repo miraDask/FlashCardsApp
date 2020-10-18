@@ -7,13 +7,14 @@ import { getCookie } from '../utils/cookie';
 import ModalContainer from './ModalContainer';
 import DeckForm from './DeckForm';
 
-const CreateDeckModal = (deck) => {
+const CreateDeckModal = () => {
 	const { modalIsOpen } = useContext(Context);
 
-	const handleCreate = async () => {
+	const handleCreate = async (deck) => {
+		console.log('deck', deck);
 		const token = getCookie('x-auth-token');
 		try {
-			await createDeck(deck, token);
+			await createDeck({ ...deck }, token);
 			return true;
 		} catch (error) {
 			return false;

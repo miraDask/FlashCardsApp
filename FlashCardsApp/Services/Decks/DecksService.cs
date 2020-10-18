@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using FlashCardsApp.Data;
 
 using FlashCardsApp.Models.Decks;
+using FlashCardsApp.Models;
+using FlashCardsApp.Data.Models;
 
 namespace FlashCardsApp.Services.Decks
 {
@@ -15,6 +17,19 @@ namespace FlashCardsApp.Services.Decks
         public DecksService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public async Task CreateAsync(string userId, string name, string description)
+        {
+            var deck = new Deck
+            {
+                Name = name,
+                Description = description,
+                CreatorId = userId,
+            };
+
+            await this.dbContext.AddAsync(deck);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<AllDecksServiceModel> GetAllAsync()
