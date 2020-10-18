@@ -4,7 +4,7 @@ using static FlashCardsApp.Models.Validations.Deck;
 
 namespace FlashCardsApp.Models.Decks
 {
-    public class DeckInputModel
+    public class CreateDeckInputModel
     {
         [Required]
         [MinLength(NameMinLength)]

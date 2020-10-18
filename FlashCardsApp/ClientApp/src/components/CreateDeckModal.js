@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../providers/global-context.provider';
+import { DecksContext } from '../providers/decks-context.provider';
 
 import { createDeck } from '../services/decks.service';
 import { getCookie } from '../utils/cookie';
@@ -9,12 +10,13 @@ import DeckForm from './DeckForm';
 
 const CreateDeckModal = () => {
 	const { modalIsOpen } = useContext(Context);
+	const { saveNewDecks } = useContext(DecksContext);
 
 	const handleCreate = async (deck) => {
-		console.log('deck', deck);
 		const token = getCookie('x-auth-token');
 		try {
 			await createDeck({ ...deck }, token);
+			saveNewDecks();
 			return true;
 		} catch (error) {
 			return false;

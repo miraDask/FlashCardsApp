@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalContextProvider from './providers/global-context.provider';
+import DecksContextProvider from './providers/decks-context.provider';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -11,9 +12,11 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
 	<GlobalContextProvider>
-		<BrowserRouter basename={baseUrl}>
-			<App />
-		</BrowserRouter>
+		<DecksContextProvider>
+			<BrowserRouter basename={baseUrl}>
+				<App />
+			</BrowserRouter>
+		</DecksContextProvider>
 	</GlobalContextProvider>,
 	rootElement
 );

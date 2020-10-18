@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-using FlashCardsApp.Data;
 
+using FlashCardsApp.Data;
 using FlashCardsApp.Models.Decks;
-using FlashCardsApp.Models;
 using FlashCardsApp.Data.Models;
 
 namespace FlashCardsApp.Services.Decks
@@ -32,18 +31,37 @@ namespace FlashCardsApp.Services.Decks
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<AllDecksServiceModel> GetAllAsync()
+        public async Task DeleteAsync(int id)
+        {
+            var deck = await this.dbContext.Decks.Where(x => x.Id == id).FirstOrDefaultAsync();
+            this.dbContext.Remove(deck);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AllDecksServiceModel> GetAllAsync(string userId)
         {
             var decks = await this.dbContext
                 .Decks
+                .Where(x => x.CreatorId == userId)
                 .Select(x => new DecksServiceModel
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
                 })
                 .ToListAsync();
 
             return new AllDecksServiceModel() { Decks = decks };
+        }
+
+        public async Task UdateAsync(int id, string name, string description)
+        {
+            var deck = await this.dbContext.Decks.Where(x => x.Id == id).FirstOrDefaultAsync();
+            deck.Name = name;
+            deck.Description = description;
+
+            this.dbContext.Update(deck);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
