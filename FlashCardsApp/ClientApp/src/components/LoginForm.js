@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import useFormProcessor from '../hooks/useFormProcessor';
+
 import { useHistory } from 'react-router-dom';
 import { setCookie } from '../utils/cookie';
 import { loginUser } from '../services/users.service';
@@ -61,7 +62,7 @@ const LoginForm = () => {
 				{errors.password ? <ErrorMessage text={errors.password} /> : null}
 			</div>
 			<div className="form-group">
-				<input type="submit" className="btn btn-info btn-lg btn-block" value="Login" />
+				<input type="submit" className="btn btn-info btn-lg btn-block" value="Sign In" />
 			</div>
 		</form>
 	);

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Context } from '../providers/global-context.provider';
 
-const ModalContainer = ({ title, className, handleSubmit, children, show }) => {
+const ModalContainer = ({ title, className, children, show }) => {
 	const { toggleModal } = useContext(Context);
 
 	const closeBtn = (
@@ -16,14 +16,6 @@ const ModalContainer = ({ title, className, handleSubmit, children, show }) => {
 				{title}
 			</ModalHeader>
 			<ModalBody>{children}</ModalBody>
-			<ModalFooter>
-				<Button color="success" onClick={handleSubmit}>
-					Submit
-				</Button>{' '}
-				<Button color="secondary" onClick={toggleModal}>
-					Cancel
-				</Button>
-			</ModalFooter>
 		</Modal>
 	);
 };

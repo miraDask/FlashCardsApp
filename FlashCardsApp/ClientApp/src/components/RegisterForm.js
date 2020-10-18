@@ -6,7 +6,7 @@ import { registerUser } from '../services/users.service';
 import { Context } from '../providers/global-context.provider';
 import { validatePassword, validateConfirmPassword, validateUsername } from '../utils/validations/auth';
 
-import { getServerErrorsObject, getEmptyInputsErrorsObject } from '../utils/errors/auth';
+import { getEmptyInputsErrorsObject } from '../utils/errors/auth';
 import ErrorMessage from './ErrorMessage';
 
 const initialUser = {
@@ -31,8 +31,7 @@ const RegisterForm = () => {
 			setErrors(initialUser);
 			history.push('/user/decks');
 		} else {
-			const errorsObject = getServerErrorsObject(result);
-			setErrors({ ...errors, ...errorsObject });
+			setErrors({ ...errors, username: result.error });
 		}
 	};
 
@@ -83,7 +82,7 @@ const RegisterForm = () => {
 				{errors.confirmPassword ? <ErrorMessage text={errors.confirmPassword} /> : null}
 			</div>
 			<div className="form-group">
-				<input type="submit" className="btn btn-info btn-lg btn-block" value="Submit" />
+				<input type="submit" className="btn btn-info btn-lg btn-block" value="Sign up" />
 			</div>
 		</form>
 	);
