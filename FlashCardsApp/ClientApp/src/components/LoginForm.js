@@ -36,7 +36,7 @@ const LoginForm = () => {
 		}
 	};
 	return (
-		<form className="bg-white rounded" onSubmit={(e) => handleSubmit(e, getErrors(), handleSignIn)}>
+		<form className="bg-white rounded mt-5" onSubmit={(e) => handleSubmit(e, getErrors(), handleSignIn)}>
 			<h2 className="mb-4 mt-0 text-center">Login</h2>
 			<div className="form-group">
 				<input

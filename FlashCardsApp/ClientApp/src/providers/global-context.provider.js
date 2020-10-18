@@ -5,9 +5,11 @@ import { getCookie, deleteCookie } from '../utils/cookie';
 const initialState = {
 	user: null,
 	isLoggedIn: false,
+	modalIsOpen: false,
 	saveUser: () => {},
 	logout: () => {},
-	toggleLoggedIn: () => {}
+	toggleLoggedIn: () => {},
+	toggleModal: () => {}
 };
 
 export const Context = createContext(initialState);
@@ -15,10 +17,12 @@ export const Context = createContext(initialState);
 const GlobalContextProvider = ({ children }) => {
 	const [ user, setUser ] = useState('');
 	const [ isLoggedIn, setLoggedIn ] = useState(false);
+	const [ modalIsOpen, setModalIsOpen ] = useState(false);
 
 	const saveUser = (user) => setUser(user);
 
 	const toggleLoggedIn = (value) => setLoggedIn(value);
+	const toggleModal = () => setModalIsOpen(!modalIsOpen);
 
 	const logout = () => {
 		setLoggedIn(false);
@@ -45,9 +49,11 @@ const GlobalContextProvider = ({ children }) => {
 			value={{
 				user,
 				isLoggedIn,
+				modalIsOpen,
 				logout,
 				saveUser,
-				toggleLoggedIn
+				toggleLoggedIn,
+				toggleModal
 			}}
 		>
 			{children}

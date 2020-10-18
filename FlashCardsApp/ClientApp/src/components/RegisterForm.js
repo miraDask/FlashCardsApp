@@ -38,7 +38,7 @@ const RegisterForm = () => {
 
 	return (
 		<form
-			className="bg-white rounded"
+			className="bg-white rounded mt-5"
 			onSubmit={(e) => handleSubmit(e, getEmptyInputsErrorsObject({ ...data }), handleSignUp)}
 		>
 			<h2 className="mb-4 mt-0 text-center">Register</h2>
