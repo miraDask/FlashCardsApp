@@ -1,18 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { Context } from '../providers/global-context.provider';
 
-const ModalContainer = ({ title, className, children, show }) => {
-	const { toggleModal } = useContext(Context);
-
+const ModalContainer = ({ title, className, children, show, toggle }) => {
 	const closeBtn = (
-		<button className="close" onClick={toggleModal}>
+		<button className="close" onClick={toggle}>
 			&times;
 		</button>
 	);
+
 	return (
-		<Modal isOpen={show} toggle={toggleModal} className={className}>
-			<ModalHeader toggle={toggleModal} close={closeBtn}>
+		<Modal isOpen={show} toggle={toggle} className={className}>
+			<ModalHeader toggle={toggle} close={closeBtn}>
 				{title}
 			</ModalHeader>
 			<ModalBody>{children}</ModalBody>

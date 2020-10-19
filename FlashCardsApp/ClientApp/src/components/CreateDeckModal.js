@@ -9,7 +9,7 @@ import ModalContainer from './ModalContainer';
 import DeckForm from './DeckForm';
 
 const CreateDeckModal = () => {
-	const { modalIsOpen } = useContext(Context);
+	const { createDeckModalIsOpen, toggleCreateDeckModal } = useContext(Context);
 	const { saveNewDecks } = useContext(DecksContext);
 
 	const handleCreate = async (deck) => {
@@ -24,8 +24,8 @@ const CreateDeckModal = () => {
 	};
 
 	return (
-		<ModalContainer show={modalIsOpen} title="Create new deck">
-			<DeckForm btnTitle="Create" handleFetchData={handleCreate}>
+		<ModalContainer show={createDeckModalIsOpen} toggle={toggleCreateDeckModal} title="Create new deck">
+			<DeckForm btnTitle="Create" handleFetchData={handleCreate} successFunc={toggleCreateDeckModal}>
 				<div className="form-group">
 					<input type="submit" className="btn btn-info btn-lg btn-block" value="Create" />
 				</div>

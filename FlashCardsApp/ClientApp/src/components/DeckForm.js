@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import useFormProcessor from '../hooks/useFormProcessor';
-import { Context } from '../providers/global-context.provider';
 import { getEmptyInputsErrorsObject } from '../utils/errors/decks';
 import { validateName, validateDescription } from '../utils/validations/decks';
 
@@ -12,19 +11,27 @@ const initialDeck = {
 	description: ''
 };
 
-const DeckForm = ({ handleFetchData, children }) => {
-	const { data, errors, handleChange, setErrors, handleSubmit, handleOnBlur } = useFormProcessor(
+const DeckForm = ({ handleFetchData, successFunc, children, deck = null }) => {
+	const { data, errors, setData, handleChange, setErrors, handleSubmit, handleOnBlur } = useFormProcessor(
 		initialDeck,
 		initialDeck
 	);
-	const { toggleModal } = useContext(Context);
+
+	useEffect(
+		() => {
+			if (deck) {
+				setData(deck);
+			}
+		},
+		[ deck, setData ]
+	);
 
 	const handleFetchAsync = async () => {
 		const success = await handleFetchData(data);
 
 		if (success) {
 			setErrors({ name: '', key: '' });
-			toggleModal();
+			successFunc();
 		}
 	};
 	return (

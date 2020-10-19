@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import '../custom.css';
 import { Button, Row, Card, Col, CardTitle } from 'reactstrap';
 
+import { DecksContext } from '../providers/decks-context.provider';
+import { Context } from '../providers/global-context.provider';
+
 const DeckCard = ({ deck }) => {
+	const { saveOpenedDeck } = useContext(DecksContext);
+	const { toggleEditDeckModal } = useContext(Context);
+
+	const openEditDeckModal = (deck) => {
+		saveOpenedDeck(deck);
+		toggleEditDeckModal();
+	};
+
 	return (
 		<Col sm="3" className="mt-4 h-100">
 			<Card body>
 				<Row>
 					<Col lg="10" />
-					<Col lg="1" className="float-right">
+					<Col
+						lg="1"
+						className="custom-btn float-right"
+						onClick={() => {
+							openEditDeckModal(deck);
+						}}
+					>
 						<svg
 							width="1em"
 							height="1em"

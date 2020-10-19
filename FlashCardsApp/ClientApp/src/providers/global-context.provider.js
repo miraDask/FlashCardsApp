@@ -5,11 +5,13 @@ import { getCookie, deleteCookie } from '../utils/cookie';
 const initialState = {
 	user: null,
 	isLoggedIn: false,
-	modalIsOpen: false,
+	createDeckModalIsOpen: false,
+	editDeckModalIsOpen: false,
 	saveUser: () => {},
 	logout: () => {},
 	toggleLoggedIn: () => {},
-	toggleModal: () => {}
+	toggleCreateDeckModal: () => {},
+	toggleEditDeckModal: () => {}
 };
 
 export const Context = createContext(initialState);
@@ -17,12 +19,14 @@ export const Context = createContext(initialState);
 const GlobalContextProvider = ({ children }) => {
 	const [ user, setUser ] = useState('');
 	const [ isLoggedIn, setLoggedIn ] = useState(false);
-	const [ modalIsOpen, setModalIsOpen ] = useState(false);
+	const [ createDeckModalIsOpen, setCreateDeckModalIsOpen ] = useState(false);
+	const [ editDeckModalIsOpen, setEditDeckModalIsOpen ] = useState(false);
 
 	const saveUser = (user) => setUser(user);
 
 	const toggleLoggedIn = (value) => setLoggedIn(value);
-	const toggleModal = () => setModalIsOpen(!modalIsOpen);
+	const toggleCreateDeckModal = () => setCreateDeckModalIsOpen(!createDeckModalIsOpen);
+	const toggleEditDeckModal = () => setEditDeckModalIsOpen(!editDeckModalIsOpen);
 
 	const logout = () => {
 		setLoggedIn(false);
@@ -49,11 +53,13 @@ const GlobalContextProvider = ({ children }) => {
 			value={{
 				user,
 				isLoggedIn,
-				modalIsOpen,
+				createDeckModalIsOpen,
+				editDeckModalIsOpen,
 				logout,
 				saveUser,
 				toggleLoggedIn,
-				toggleModal
+				toggleCreateDeckModal,
+				toggleEditDeckModal
 			}}
 		>
 			{children}
