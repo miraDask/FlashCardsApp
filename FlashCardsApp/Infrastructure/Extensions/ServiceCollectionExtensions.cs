@@ -12,6 +12,7 @@ using FlashCardsApp.Data.Models;
 using FlashCardsApp.Infrastructure.Filters;
 using FlashCardsApp.Services.Identity;
 using FlashCardsApp.Services.Decks;
+using FlashCardsApp.Services.Cards;
 
 namespace FlashCardsApp.Infrastructure.Extensions
 {
@@ -95,8 +96,8 @@ namespace FlashCardsApp.Infrastructure.Extensions
         {
             services
                 .AddTransient<IIdentityService, IdentityService>()
-                .AddTransient<IDecksService, DecksService>();
-            //    .AddTransient<ICardsService, CardsService>();
+                .AddTransient<IDecksService, DecksService>()
+                .AddTransient<ICardsService, CardsService>();
 
             return services;
         }

@@ -26,7 +26,7 @@ const CreateDeckModal = () => {
 
 	return (
 		<ModalContainer show={createDeckModalIsOpen} toggle={toggleCreateDeckModal} title="Create new deck">
-			<DeckForm btnTitle="Create" handleFetchData={handleCreate} successFunc={toggleCreateDeckModal}>
+			<DeckForm handleFetchData={handleCreate} successFunc={toggleCreateDeckModal}>
 				<FormGroup>
 					<input type="submit" className="btn btn-info btn-lg btn-block" value="Create" />
 				</FormGroup>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useFormProcessor = (initialError, initialData) => {
-	const [ errors, setErrors ] = useState(initialError);
+const useFormProcessor = (initialData) => {
+	const [ errors, setErrors ] = useState(initialData);
 	const [ data, setData ] = useState(initialData);
 
 	const handleChange = (event) => {

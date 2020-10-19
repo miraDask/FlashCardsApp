@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FlashCardsApp.Services.Cards
 {
-    public class CardService : ICardsService
+    public class CardsService : ICardsService
     {
         private readonly ApplicationDbContext dbContext;
 
-        public CardService(ApplicationDbContext dbContext)
+        public CardsService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

@@ -10,6 +10,9 @@ import CreateDeckModal from './CreateDeckModal';
 import DeckCard from './DeckCard';
 import EditDeckModal from './EditDeckModal';
 
+const NO_DECKS = 'Create new deck and start learning';
+const DECKS = 'Your decks :';
+
 const DecksPage = () => {
 	const { toggleCreateDeckModal } = useContext(Context);
 	const [ decks, setDecks ] = useState([]);
@@ -29,15 +32,19 @@ const DecksPage = () => {
 		[ getAllDecks, updatedDecks ]
 	);
 
+	const renderDecks = () => {
+		return decks.map((deck) => <DeckCard key={deck.id} deck={deck} />);
+	};
+
 	return (
 		<div>
 			<Row>
-				<Col />
+				<Col className="h3">{decks.length === 0 ? NO_DECKS : DECKS}</Col>
 				<Button color="info" onClick={toggleCreateDeckModal} className="mr-0 float-right">
 					Create Deck
 				</Button>
 			</Row>
-			<Row className="mt-4">{decks.map((deck) => <DeckCard key={deck.id} deck={deck} />)}</Row>
+			<Row className="mt-4">{renderDecks()}</Row>
 			<CreateDeckModal />
 			<EditDeckModal />
 		</div>
