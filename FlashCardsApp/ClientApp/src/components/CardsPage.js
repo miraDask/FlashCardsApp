@@ -8,7 +8,7 @@ import { getCookie } from '../utils/cookie';
 import { Button, Row, Col } from 'reactstrap';
 import CreateCardModal from './CreateCardModal';
 import Card from './Card';
-//import EditCardModal from './EditCardModal';
+import EditCardModal from './EditCardModal';
 
 const CardsPage = () => {
 	const { toggleCreateCardModal } = useContext(Context);
@@ -44,8 +44,9 @@ const CardsPage = () => {
 			<Button color="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
 				Add new Card
 			</Button>
-			<CreateCardModal deckId={deckId} />
 			<Row className="mt-4">{renderCards()}</Row>
+			<CreateCardModal deckId={deckId} />
+			<EditCardModal deckId={deckId} />
 		</Row>
 	);
 };

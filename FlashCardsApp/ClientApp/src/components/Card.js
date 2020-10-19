@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+
+import { CardsContext } from '../providers/cards-context.provider';
+import { Context } from '../providers/global-context.provider';
+
 import { Card, Button, CardHeader, CardBody, CardTitle, Col, Row } from 'reactstrap';
 import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
 import '../custom.css';
 
 const Example = ({ card }) => {
 	const [ text, setText ] = useState(card.term);
+	const { saveOpenedCard, updatedCards } = useContext(CardsContext);
+	const { toggleEditCardModal } = useContext(Context);
+
+	useEffect(
+		() => {
+			setText(card.term);
+		},
+		[ updatedCards, card.term ]
+	);
 
 	const handleFlipCard = () => {
+		console.log('text', text);
+		console.log('term', card.term);
+
 		if (text === card.term) {
 			setText(card.definition);
 		} else {
 			setText(card.term);
 		}
+	};
+
+	const openEditCardModal = (card) => {
+		saveOpenedCard(card);
+		toggleEditCardModal();
 	};
 
 	return (
@@ -24,7 +45,7 @@ const Example = ({ card }) => {
 							lg="1"
 							className="custom-btn float-right"
 							onClick={() => {
-								//openEditCardModal(deck);
+								openEditCardModal(card);
 							}}
 						>
 							<EditIcon />
