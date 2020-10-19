@@ -13,7 +13,6 @@ const initialDeck = {
 
 const DeckForm = ({ handleFetchData, successFunc, children, deck = null }) => {
 	const { data, errors, setData, handleChange, setErrors, handleSubmit, handleOnBlur } = useFormProcessor(
-		initialDeck,
 		initialDeck
 	);
 
@@ -30,7 +29,7 @@ const DeckForm = ({ handleFetchData, successFunc, children, deck = null }) => {
 		const success = await handleFetchData(data);
 
 		if (success) {
-			setErrors({ name: '', key: '' });
+			setErrors({ name: '', description: '' });
 			successFunc();
 		}
 	};

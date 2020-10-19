@@ -32,9 +32,6 @@ const NavMenu = () => {
 					<NavbarToggler onClick={toggleNavbar} className="mr-2" />
 					<Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
 						<ul className="navbar-nav flex-grow">
-							<NavItem>
-								<CreateDropdown />
-							</NavItem>
 							{!isLoggedIn ? (
 								<NavItem>
 									<NavLink tag={Link} className="text-dark" to="/register">

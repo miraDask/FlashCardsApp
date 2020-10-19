@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalContextProvider from './providers/global-context.provider';
 import DecksContextProvider from './providers/decks-context.provider';
+import CardsContextProvider from './providers/cards-context.provider';
+
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -13,9 +15,11 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
 	<GlobalContextProvider>
 		<DecksContextProvider>
-			<BrowserRouter basename={baseUrl}>
-				<App />
-			</BrowserRouter>
+			<CardsContextProvider>
+				<BrowserRouter basename={baseUrl}>
+					<App />
+				</BrowserRouter>
+			</CardsContextProvider>
 		</DecksContextProvider>
 	</GlobalContextProvider>,
 	rootElement

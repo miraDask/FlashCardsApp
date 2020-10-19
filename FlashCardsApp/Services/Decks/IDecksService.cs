@@ -1,5 +1,6 @@
-﻿using FlashCardsApp.Models.Decks;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using FlashCardsApp.Models.Decks;
 
 namespace FlashCardsApp.Services.Decks
 {
@@ -12,5 +13,7 @@ namespace FlashCardsApp.Services.Decks
         Task UdateAsync(int id, string name, string description);
 
         Task DeleteAsync(int id);
+
+        Task<string> GetDeckNameAsync(int id);
     }
 }

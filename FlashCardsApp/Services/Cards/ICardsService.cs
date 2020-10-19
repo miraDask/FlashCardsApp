@@ -1,0 +1,17 @@
+﻿using System.Threading.Tasks;
+
+using FlashCardsApp.Models.Cards;
+
+namespace FlashCardsApp.Services.Cards
+{
+    public interface ICardsService
+    {
+        Task<AllCardsServiceModel> GetAllAsync(int deckId);
+
+        Task CreateAsync(int deckId, string term, string definition);
+
+        Task UdateAsync(int id, string term, string definition);
+
+        Task DeleteAsync(int id);
+    }
+}

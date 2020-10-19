@@ -1,35 +1,54 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
 import { Context } from '../providers/global-context.provider';
-import { DecksContext } from '../providers/decks-context.provider';
-
-import { getDecks } from '../services/decks.service';
+import { CardsContext } from '../providers/cards-context.provider';
+import { useParams } from 'react-router-dom';
+import { getCards } from '../services/cards.service';
 import { getCookie } from '../utils/cookie';
 
 import { Button, Row, Col } from 'reactstrap';
-import CreateDeckModal from './CreateDeckModal';
-import DeckCard from './DeckCard';
-import EditDeckModal from './EditDeckModal';
+import CreateCardModal from './CreateCardModal';
+import Card from './Card';
+import EditCardModal from './EditCardModal';
 
 const CardsPage = () => {
-	const { toggleCreateDeckModal } = useContext(Context);
-	const [ decks, setDecks ] = useState([]);
-	const { updatedDecks } = useContext(DecksContext);
+	const { toggleCreateCardModal } = useContext(Context);
+	const [ cards, setCards ] = useState([]);
+	const [ deckName, setDeckName ] = useState('');
+	const { updatedCards } = useContext(CardsContext);
+	const { deckId } = useParams();
 
-	const getAllDecks = useCallback(async () => {
-		const token = getCookie('x-auth-token');
-
-		const response = await getDecks(token);
-		setDecks(response.decks);
-	}, []);
+	const getAllCards = useCallback(
+		async () => {
+			const token = getCookie('x-auth-token');
+			const response = await getCards(token, deckId);
+			setCards(response.cards);
+			setDeckName(response.deckName);
+		},
+		[ deckId ]
+	);
 
 	useEffect(
 		() => {
-			getAllDecks();
+			getAllCards();
 		},
-		[ getAllDecks, updatedDecks ]
+		[ getAllCards, updatedCards ]
 	);
 
-	return <div>All Cards</div>;
+	const renderCards = () => {
+		return cards.map((c) => <Card card={c} key={c.id} />);
+	};
+
+	return (
+		<Row>
+			<Col className="h3">{`All cards in : ${deckName}`}</Col>
+			<Button color="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
+				Add new Card
+			</Button>
+			<Row className="mt-4">{renderCards()}</Row>
+			<CreateCardModal deckId={deckId} />
+			<EditCardModal deckId={deckId} />
+		</Row>
+	);
 };
 
 export default CardsPage;
