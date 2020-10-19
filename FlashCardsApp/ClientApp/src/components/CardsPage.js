@@ -10,7 +10,7 @@ import CreateDeckModal from './CreateDeckModal';
 import DeckCard from './DeckCard';
 import EditDeckModal from './EditDeckModal';
 
-const DecksPage = () => {
+const CardsPage = () => {
 	const { toggleCreateDeckModal } = useContext(Context);
 	const [ decks, setDecks ] = useState([]);
 	const { updatedDecks } = useContext(DecksContext);
@@ -29,19 +29,7 @@ const DecksPage = () => {
 		[ getAllDecks, updatedDecks ]
 	);
 
-	return (
-		<div>
-			<Row>
-				<Col />
-				<Button color="info" onClick={toggleCreateDeckModal} className="mr-0 float-right">
-					Create Deck
-				</Button>
-			</Row>
-			<Row className="mt-4">{decks.map((deck) => <DeckCard key={deck.id} deck={deck} />)}</Row>
-			<CreateDeckModal />
-			<EditDeckModal />
-		</div>
-	);
+	return <div>All Cards</div>;
 };
 
-export default DecksPage;
+export default CardsPage;

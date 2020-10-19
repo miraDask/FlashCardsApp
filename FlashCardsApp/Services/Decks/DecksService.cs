@@ -43,6 +43,7 @@ namespace FlashCardsApp.Services.Decks
             var decks = await this.dbContext
                 .Decks
                 .Where(x => x.CreatorId == userId)
+                .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new DecksServiceModel
                 {
                     Id = x.Id,
