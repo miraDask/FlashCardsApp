@@ -1,0 +1,63 @@
+﻿using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using FlashCardsApp.Data.Models;
+
+using FlashCardsApp.Models.Decks;
+using FlashCardsApp.Services.Decks;
+
+namespace FlashCardsApp.Controllers
+{
+    public class DecksController : ApiController
+    {
+        private readonly UserManager<User> userManager;
+        private readonly IDecksService decksService;
+
+        public DecksController(UserManager<User> userManager, IDecksService decksService)
+        {
+            this.userManager = userManager;
+            this.decksService = decksService;
+        }
+
+        [HttpPost]
+        [Route("api/user/decks")]
+        public async Task<ActionResult> Create([FromBody] CreateDeckInputModel input)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            await this.decksService.CreateAsync(userId, input.Name, input.Description);
+
+            return this.Ok();
+        }
+
+        [HttpGet]
+        [Route("api/user/decks")]
+        public async Task<ActionResult> GetAll()
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            var allDeckModel = await this.decksService.GetAllAsync(userId);
+
+            return this.Ok(allDeckModel);
+        }
+
+        [HttpPatch]
+        [Route("api/user/decks")]
+        public async Task<ActionResult> Update([FromBody]UpdateDeckInputModel input)
+        {
+            await this.decksService.UdateAsync(input.Id, input.Name, input.Description);
+
+            return this.Ok();
+        }
+
+        [HttpDelete]
+        [Route("api/user/decks")]
+        public async Task<ActionResult> Delete([FromBody] DeleteDeckInputModel input)
+        {
+            await this.decksService.DeleteAsync(input.Id);
+
+            return this.Ok();
+        }
+    }
+}

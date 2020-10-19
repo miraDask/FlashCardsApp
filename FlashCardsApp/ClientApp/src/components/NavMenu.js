@@ -6,6 +6,7 @@ import { Context } from '../providers/global-context.provider';
 import CreateDropdown from './CreateDropdown';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import '../custom.css';
 
 const NavMenu = () => {
 	const [ collapsed, setCollapsed ] = useState(false);
@@ -42,7 +43,7 @@ const NavMenu = () => {
 								</NavItem>
 							) : (
 								<NavItem className="ml-2">
-									<NavLink tag={Link} className="text-dark" onClick={handleLogout}>
+									<NavLink className="custom-btn text-dark" onClick={handleLogout}>
 										Logout
 									</NavLink>
 								</NavItem>

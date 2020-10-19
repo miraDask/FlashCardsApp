@@ -1,18 +1,5 @@
 import { validatePassword, validateConfirmPassword, validateUsername } from '../validations/auth';
 
-export const getServerErrorsObject = (serverErrors) => {
-	let errorsObject = {};
-	Object.keys(serverErrors).forEach((key) => {
-		const message = serverErrors[key][0];
-		if (message.toLowerCase().includes('user name')) {
-			errorsObject = { ...errorsObject, username: message };
-		} else if (message.toLowerCase().includes('password')) {
-			errorsObject = { ...errorsObject, password: message };
-		}
-	});
-	return errorsObject;
-};
-
 export const getEmptyInputsErrorsObject = (inputsObject) => {
 	let errorsObject = {};
 	Object.keys(inputsObject).forEach((key) => {

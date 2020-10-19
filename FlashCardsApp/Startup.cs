@@ -1,3 +1,5 @@
+using System;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -53,6 +55,7 @@ namespace FlashCardsApp
             app.UseAuthorization();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
+            app.ApplyMigrations();
 
             app.UseEndpoints(endpoints =>
             {
@@ -67,11 +70,10 @@ namespace FlashCardsApp
 
                 if (env.IsDevelopment())
                 {
+                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
-
-            app.ApplyMigrations();
         }
     }
 }

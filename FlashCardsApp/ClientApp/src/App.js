@@ -1,22 +1,25 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
+import React, { useContext } from 'react';
+import { Context } from './providers/global-context.provider';
+import { Route, Redirect } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
 import RegisterPage from './components/RegisterPage';
+import DecksPage from './components/DecksPage';
+import CardsPage from './components/CardsPage';
 
 import './custom.css';
 
-export default class App extends Component {
-	static displayName = App.name;
+const App = () => {
+	const { isLoggedIn } = useContext(Context);
 
-	render() {
-		return (
-			<Layout>
-				<Route exact path="/" component={Home} />
-				<Route path="/register" component={RegisterPage} />
-				<Route path="/fetch-data" component={FetchData} />
-			</Layout>
-		);
-	}
-}
+	return (
+		<Layout>
+			<Route exact path="/" render={() => (!isLoggedIn ? <Home /> : <Redirect to="/user/decks" />)} />
+			<Route exact path="/user/decks" component={DecksPage} />
+			<Route exact path="/user/decks/:deckId/cards" component={CardsPage} />
+			<Route path="/register" component={RegisterPage} />
+		</Layout>
+	);
+};
+
+export default App;
