@@ -5,6 +5,7 @@ import { DecksContext } from '../providers/decks-context.provider';
 import { createDeck } from '../services/decks.service';
 import { getCookie } from '../utils/cookie';
 
+import { FormGroup } from 'reactstrap';
 import ModalContainer from './ModalContainer';
 import DeckForm from './DeckForm';
 
@@ -26,9 +27,9 @@ const CreateDeckModal = () => {
 	return (
 		<ModalContainer show={createDeckModalIsOpen} toggle={toggleCreateDeckModal} title="Create new deck">
 			<DeckForm btnTitle="Create" handleFetchData={handleCreate} successFunc={toggleCreateDeckModal}>
-				<div className="form-group">
+				<FormGroup>
 					<input type="submit" className="btn btn-info btn-lg btn-block" value="Create" />
-				</div>
+				</FormGroup>
 			</DeckForm>
 		</ModalContainer>
 	);
