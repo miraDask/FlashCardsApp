@@ -13,5 +13,7 @@ namespace FlashCardsApp.Services.Decks
         Task UdateAsync(int id, string name, string description);
 
         Task DeleteAsync(int id);
+
+        Task<string> GetDeckNameAsync(int id);
     }
 }

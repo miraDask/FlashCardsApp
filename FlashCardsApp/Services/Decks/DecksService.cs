@@ -55,6 +55,13 @@ namespace FlashCardsApp.Services.Decks
             return new AllDecksServiceModel() { Decks = decks };
         }
 
+        public async Task<string> GetDeckNameAsync(int id)
+        => await this.dbContext
+            .Decks
+            .Where(x => x.Id == id)
+            .Select(x => x.Name)
+            .FirstOrDefaultAsync();
+
         public async Task UdateAsync(int id, string name, string description)
         {
             var deck = await this.dbContext.Decks.Where(x => x.Id == id).FirstOrDefaultAsync();

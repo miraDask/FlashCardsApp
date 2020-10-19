@@ -7,14 +7,13 @@ import { getCookie } from '../utils/cookie';
 
 import { Button, Row, Col } from 'reactstrap';
 import CreateCardModal from './CreateCardModal';
-//import Card from './Card';
+import Card from './Card';
 //import EditCardModal from './EditCardModal';
-const NO_CARDS = 'Create cards and start learning';
-const CARDS = 'All cards:';
 
 const CardsPage = () => {
 	const { toggleCreateCardModal } = useContext(Context);
 	const [ cards, setCards ] = useState([]);
+	const [ deckName, setDeckName ] = useState('');
 	const { updatedCards } = useContext(CardsContext);
 	const { deckId } = useParams();
 
@@ -23,6 +22,7 @@ const CardsPage = () => {
 			const token = getCookie('x-auth-token');
 			const response = await getCards(token, deckId);
 			setCards(response.cards);
+			setDeckName(response.deckName);
 		},
 		[ deckId ]
 	);
@@ -35,16 +35,12 @@ const CardsPage = () => {
 	);
 
 	const renderCards = () => {
-		return cards.map((c) => (
-			<div className="col-4">
-				{c.term} , {c.definition} , {c.id}
-			</div>
-		));
+		return cards.map((c) => <Card card={c} key={c.id} />);
 	};
 
 	return (
 		<Row>
-			<Col className="h3">{cards.length === 0 ? NO_CARDS : CARDS}</Col>
+			<Col className="h3">{`All cards in : ${deckName}`}</Col>
 			<Button color="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
 				Add new Card
 			</Button>

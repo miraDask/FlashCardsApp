@@ -1,21 +1,24 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 using FlashCardsApp.Data;
 using FlashCardsApp.Data.Models;
 using FlashCardsApp.Models.Cards;
-
-using Microsoft.EntityFrameworkCore;
+using FlashCardsApp.Services.Decks;
 
 namespace FlashCardsApp.Services.Cards
 {
     public class CardsService : ICardsService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IDecksService decksService;
 
-        public CardsService(ApplicationDbContext dbContext)
+        public CardsService(ApplicationDbContext dbContext, IDecksService decksService)
         {
             this.dbContext = dbContext;
+            this.decksService = decksService;
         }
 
         public async Task CreateAsync(int deckId, string term, string definition)
@@ -40,6 +43,8 @@ namespace FlashCardsApp.Services.Cards
 
         public async Task<AllCardsServiceModel> GetAllAsync(int deckId)
         {
+            var deckName = await this.decksService.GetDeckNameAsync(deckId);
+
             var cards = await this.dbContext
                 .Cards
                 .Where(x => x.DeckId == deckId)
@@ -52,7 +57,11 @@ namespace FlashCardsApp.Services.Cards
                 })
                 .ToListAsync();
 
-            return new AllCardsServiceModel() { Cards = cards };
+            return new AllCardsServiceModel()
+            { 
+                DeckName = deckName,
+                Cards = cards 
+            };
         }
 
         public async Task UdateAsync(int id, string term, string definition)
