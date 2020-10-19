@@ -1,5 +1,6 @@
-﻿using FlashCardsApp.Models.Decks;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using FlashCardsApp.Models.Decks;
 
 namespace FlashCardsApp.Services.Decks
 {
