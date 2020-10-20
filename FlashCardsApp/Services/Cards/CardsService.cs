@@ -47,6 +47,7 @@ namespace FlashCardsApp.Services.Cards
 
             var cards = await this.dbContext
                 .Cards
+                .AsNoTracking()
                 .Where(x => x.DeckId == deckId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new CardServiceModel
