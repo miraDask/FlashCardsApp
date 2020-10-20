@@ -36,7 +36,7 @@ namespace FlashCardsApp.Services.Cards
 
         public async Task DeleteAsync(int id)
         {
-            var card = await this.dbContext.Cards.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var card = await this.GetCardByIdAsync(id);
             this.dbContext.Remove(card);
             await this.dbContext.SaveChangesAsync();
         }
@@ -67,12 +67,18 @@ namespace FlashCardsApp.Services.Cards
 
         public async Task UdateAsync(int id, string term, string definition)
         {
-            var card = await this.dbContext.Cards.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var card = await this.GetCardByIdAsync(id);
             card.Term = term;
             card.Definition = definition;
 
             this.dbContext.Update(card);
             await this.dbContext.SaveChangesAsync();
         }
+
+        private async Task<Card> GetCardByIdAsync(int id)
+            => await this.dbContext.Cards
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
     }
 }
