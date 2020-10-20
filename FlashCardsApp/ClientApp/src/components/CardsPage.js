@@ -39,15 +39,17 @@ const CardsPage = () => {
 	};
 
 	return (
-		<Row>
-			<Col className="h3">{`All cards in : ${deckName}`}</Col>
-			<Button color="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
-				Add new Card
-			</Button>
+		<div>
+			<Row>
+				<Col className="h3">{`All cards in : ${deckName}`}</Col>
+				<Button color="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
+					Add new Card
+				</Button>
+			</Row>
 			<Row className="mt-4">{renderCards()}</Row>
 			<CreateCardModal deckId={deckId} />
 			<EditCardModal deckId={deckId} />
-		</Row>
+		</div>
 	);
 };
 
