@@ -33,7 +33,7 @@ namespace FlashCardsApp.Services.Decks
 
         public async Task DeleteAsync(int id)
         {
-            var deck = await this.dbContext.Decks.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var deck = await this.GetDeckByIdAsync(id);
             this.dbContext.Remove(deck);
             await this.dbContext.SaveChangesAsync();
         }
@@ -42,6 +42,7 @@ namespace FlashCardsApp.Services.Decks
         {
             var decks = await this.dbContext
                 .Decks
+                .AsNoTracking()
                 .Where(x => x.CreatorId == userId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new DecksServiceModel
@@ -58,18 +59,25 @@ namespace FlashCardsApp.Services.Decks
         public async Task<string> GetDeckNameAsync(int id)
         => await this.dbContext
             .Decks
+            .AsNoTracking()
             .Where(x => x.Id == id)
             .Select(x => x.Name)
             .FirstOrDefaultAsync();
 
         public async Task UdateAsync(int id, string name, string description)
         {
-            var deck = await this.dbContext.Decks.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var deck = await this.GetDeckByIdAsync(id);
             deck.Name = name;
             deck.Description = description;
 
             this.dbContext.Update(deck);
             await this.dbContext.SaveChangesAsync();
         }
+
+        private async Task<Deck> GetDeckByIdAsync(int id)
+         =>  await this.dbContext.Decks
+            .AsNoTracking()
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
     }
 }
