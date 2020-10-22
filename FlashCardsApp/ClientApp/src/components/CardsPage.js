@@ -5,15 +5,17 @@ import { useParams } from 'react-router-dom';
 import { getCards } from '../services/cards.service';
 import { getCookie } from '../utils/cookie';
 
-import { Button, Row, Col, Badge } from 'reactstrap';
+import { Button, Row, Col, Badge, Spinner } from 'reactstrap';
 import CreateCardModal from './CreateCardModal';
 import Card from './Card';
 import EditCardModal from './EditCardModal';
+import EmptyCollection from './EmptyCollection';
 
 const CardsPage = () => {
 	const { toggleCreateCardModal } = useContext(Context);
 	const [ cards, setCards ] = useState([]);
 	const [ deckName, setDeckName ] = useState('');
+	const [ isLoading, setIsLoading ] = useState(true);
 	const { updatedCards } = useContext(CardsContext);
 	const { deckId } = useParams();
 
@@ -30,6 +32,7 @@ const CardsPage = () => {
 	useEffect(
 		() => {
 			getAllCards();
+			setIsLoading(false);
 		},
 		[ getAllCards, updatedCards ]
 	);
@@ -37,6 +40,14 @@ const CardsPage = () => {
 	const renderCards = () => {
 		return cards.map((c) => <Card card={c} key={c.id} />);
 	};
+
+	const renderCollection = () => {
+		return cards.length === 0 ? <EmptyCollection collectionName="cards" /> : renderCards();
+	};
+
+	if (isLoading) {
+		return <Spinner color="info" />;
+	}
 
 	return (
 		<div>
@@ -51,7 +62,7 @@ const CardsPage = () => {
 					Add new Card
 				</Button>
 			</Row>
-			<Row className="mt-4">{renderCards()}</Row>
+			<Row className="mt-4">{renderCollection()}</Row>
 			<CreateCardModal deckId={deckId} />
 			<EditCardModal deckId={deckId} />
 		</div>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from './providers/global-context.provider';
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect, Switch } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import RegisterPage from './components/RegisterPage';
@@ -15,12 +15,14 @@ const App = () => {
 
 	return (
 		<Layout>
-			<Route exact path="/" render={() => (!isLoggedIn ? <Home /> : <Redirect to="/user/decks" />)} />
-			<Route exact path="/user/decks" component={DecksPage} />
-			<Route exact path="/user/decks/:deckId/cards" component={CardsPage} />
-			<Route path="/register" component={RegisterPage} />
-			<Route path="/error" component={ErrorPage} />
-			<Redirect to="/error" />
+			<Switch>
+				<Route exact path="/" render={() => (!isLoggedIn ? <Home /> : <Redirect to="/user/decks" />)} />
+				<Route exact path="/user/decks" component={DecksPage} />
+				<Route exact path="/user/decks/:deckId/cards" component={CardsPage} />
+				<Route path="/register" component={RegisterPage} />
+				<Route path="/error" component={ErrorPage} />
+				<Redirect to="/error" />
+			</Switch>
 		</Layout>
 	);
 };
