@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
 import '../custom.css';
-import { Button, Row, Card, Col, CardTitle } from 'reactstrap';
+import { Button, Row, Card, Col, CardTitle, DropdownItem } from 'reactstrap';
 
 import { DecksContext } from '../providers/decks-context.provider';
 import { Context } from '../providers/global-context.provider';
@@ -38,7 +38,8 @@ const DeckCard = ({ deck }) => {
 				</Row>
 				<CardTitle>{deck.name}</CardTitle>
 				<small>{deck.description}</small>
-				<Button className="mt-2" onClick={() => handleClick(deck.id)}>
+				<DropdownItem divider />
+				<Button color="info" outline className="mt-2" onClick={() => handleClick(deck.id)}>
 					See Cards
 				</Button>
 			</Card>
