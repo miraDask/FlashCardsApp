@@ -23,7 +23,7 @@ const DeckCard = ({ deck }) => {
 	};
 
 	return (
-		<Col sm="3" className="mt-4 h-100">
+		<Col sm="3" className="mt-4">
 			<Card body>
 				<Row>
 					<Col lg="10" />
@@ -40,7 +40,7 @@ const DeckCard = ({ deck }) => {
 				<CardTitle>{deck.name}</CardTitle>
 				<small>{deck.description}</small>
 				<DropdownItem divider />
-				<Button color="info" outline className="mt-2" onClick={() => handleClick(deck.id)}>
+				<Button color="info" className="mt-2" onClick={() => handleClick(deck.id)}>
 					See Cards
 				</Button>
 			</Card>

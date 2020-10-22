@@ -12,7 +12,7 @@ const CARD_HEADER_TEXT = {
 	DEFINITION: 'Definition'
 };
 
-const Example = ({ card }) => {
+const CardContainer = ({ card }) => {
 	const [ text, setText ] = useState(card.term);
 	const [ headerText, setHeaderText ] = useState(CARD_HEADER_TEXT.TERM);
 	const { saveOpenedCard, updatedCards } = useContext(CardsContext);
@@ -53,7 +53,7 @@ const Example = ({ card }) => {
 
 	return (
 		<Col sm="4" className="mt-4">
-			<Card>
+			<Card className="card">
 				<CardHeader>
 					<Row>
 						<Col lg="10">{headerText} :</Col>
@@ -71,8 +71,8 @@ const Example = ({ card }) => {
 				<CardBody>
 					<CardTitle className="text-center">{text}</CardTitle>
 					<div className="text-center">
-						<Button className="btn-info col-md-4" onClick={handleFlipCard}>
-							Flip card
+						<Button outline color="info" className="col-4 mt-4" onClick={handleFlipCard}>
+							Flip
 						</Button>
 					</div>
 				</CardBody>
@@ -81,4 +81,4 @@ const Example = ({ card }) => {
 	);
 };
 
-export default Example;
+export default CardContainer;

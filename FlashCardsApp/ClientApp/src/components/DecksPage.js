@@ -5,7 +5,7 @@ import { DecksContext } from '../providers/decks-context.provider';
 import { getDecks } from '../services/decks.service';
 import { getCookie } from '../utils/cookie';
 
-import { Button, Row, Col, Spinner } from 'reactstrap';
+import { CardDeck, Button, Row, Col, Spinner } from 'reactstrap';
 import CreateDeckModal from './CreateDeckModal';
 import DeckCard from './DeckCard';
 import EditDeckModal from './EditDeckModal';
@@ -43,7 +43,7 @@ const DecksPage = () => {
 		if (isLoading) {
 			return <Spinner color="info" />;
 		}
-      
+
 		return decks.length === 0 ? <EmptyCollection collectionName="decks" /> : renderDecks();
 	};
 
