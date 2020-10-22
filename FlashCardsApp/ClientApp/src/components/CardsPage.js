@@ -26,12 +26,15 @@ const CardsPage = () => {
 		async () => {
 			const token = getCookie('x-auth-token');
 			const response = await getCards(token, deckId);
-
+      
 			if (response.deckName === null) {
 				history.push(`/error`);
 			} else {
 				setCards(response.cards);
 				setDeckName(response.deckName);
+			  setTimeout(() => {
+				setIsLoading(false);
+			  }, 100)
 			}
 		},
 		[ deckId, history ]
@@ -40,7 +43,6 @@ const CardsPage = () => {
 	useEffect(
 		() => {
 			getAllCards();
-			setIsLoading(false);
 		},
 		[ getAllCards, updatedCards ]
 	);
@@ -53,6 +55,7 @@ const CardsPage = () => {
 		if (isLoading) {
 			return <Spinner color="info" />;
 		}
+      
 		return cards.length === 0 ? <EmptyCollection collectionName="cards" /> : renderCards();
 	};
 
