@@ -25,6 +25,9 @@ const CardsPage = () => {
 			const response = await getCards(token, deckId);
 			setCards(response.cards);
 			setDeckName(response.deckName);
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 100);
 		},
 		[ deckId ]
 	);
@@ -32,7 +35,6 @@ const CardsPage = () => {
 	useEffect(
 		() => {
 			getAllCards();
-			setIsLoading(false);
 		},
 		[ getAllCards, updatedCards ]
 	);
@@ -42,12 +44,11 @@ const CardsPage = () => {
 	};
 
 	const renderCollection = () => {
+		if (isLoading) {
+			return <Spinner color="info" />;
+		}
 		return cards.length === 0 ? <EmptyCollection collectionName="cards" /> : renderCards();
 	};
-
-	if (isLoading) {
-		return <Spinner color="info" />;
-	}
 
 	return (
 		<div>

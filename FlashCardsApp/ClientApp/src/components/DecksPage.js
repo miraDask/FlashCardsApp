@@ -23,12 +23,14 @@ const DecksPage = () => {
 		const token = getCookie('x-auth-token');
 		const response = await getDecks(token);
 		setDecks(response.decks);
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 100);
 	}, []);
 
 	useEffect(
 		() => {
 			getAllDecks();
-			setIsLoading(false);
 		},
 		[ getAllDecks, updatedDecks ]
 	);
@@ -38,12 +40,11 @@ const DecksPage = () => {
 	};
 
 	const renderCollection = () => {
+		if (isLoading) {
+			return <Spinner color="info" />;
+		}
 		return decks.length === 0 ? <EmptyCollection collectionName="decks" /> : renderDecks();
 	};
-
-	if (isLoading) {
-		return <Spinner color="info" />;
-	}
 
 	return (
 		<div>

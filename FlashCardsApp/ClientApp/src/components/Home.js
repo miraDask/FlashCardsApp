@@ -8,9 +8,11 @@ export class Home extends Component {
 		return (
 			<div className="row align-items-center justify-content-center">
 				<div className="col-md-6">
-					<h2 className="heading mb-3">Flash your memory with our app</h2>
+					<h2 className="heading mb-3">Speed up your memory</h2>
 					<div className="sub-heading">
-						<p className="mb-4">Create flash cards, save them in decks and start learning.</p>
+						<p className="mb-4">
+							Use our app to create flash cards, save them in decks and start learning.
+						</p>
 					</div>
 				</div>
 				<div className="col-md-1" />

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as EditIcon } from '../assets/edit-icon.svg';
-import '../custom.css';
 import { Button, Row, Card, Col, CardTitle, DropdownItem } from 'reactstrap';
 
 import { DecksContext } from '../providers/decks-context.provider';
 import { Context } from '../providers/global-context.provider';
+
+import '../custom.css';
 
 const DeckCard = ({ deck }) => {
 	const { saveOpenedDeck } = useContext(DecksContext);
