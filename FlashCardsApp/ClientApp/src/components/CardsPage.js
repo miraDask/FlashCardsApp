@@ -1,4 +1,6 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Context } from '../providers/global-context.provider';
 import { CardsContext } from '../providers/cards-context.provider';
 import { useParams } from 'react-router-dom';
@@ -17,19 +19,25 @@ const CardsPage = () => {
 	const [ deckName, setDeckName ] = useState('');
 	const [ isLoading, setIsLoading ] = useState(true);
 	const { updatedCards } = useContext(CardsContext);
+	const history = useHistory();
 	const { deckId } = useParams();
 
 	const getAllCards = useCallback(
 		async () => {
 			const token = getCookie('x-auth-token');
 			const response = await getCards(token, deckId);
-			setCards(response.cards);
-			setDeckName(response.deckName);
-			setTimeout(() => {
+      
+			if (response.deckName === null) {
+				history.push(`/error`);
+			} else {
+				setCards(response.cards);
+				setDeckName(response.deckName);
+			  setTimeout(() => {
 				setIsLoading(false);
-			}, 100);
+			  }, 100)
+			}
 		},
-		[ deckId ]
+		[ deckId, history ]
 	);
 
 	useEffect(
@@ -47,6 +55,7 @@ const CardsPage = () => {
 		if (isLoading) {
 			return <Spinner color="info" />;
 		}
+      
 		return cards.length === 0 ? <EmptyCollection collectionName="cards" /> : renderCards();
 	};
 
