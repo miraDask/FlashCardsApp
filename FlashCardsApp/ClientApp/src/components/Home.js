@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
-
+import '../custom.css';
 export class Home extends Component {
 	static displayName = Home.name;
 

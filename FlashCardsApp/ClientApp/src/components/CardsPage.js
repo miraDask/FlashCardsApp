@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getCards } from '../services/cards.service';
 import { getCookie } from '../utils/cookie';
 
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Badge } from 'reactstrap';
 import CreateCardModal from './CreateCardModal';
 import Card from './Card';
 import EditCardModal from './EditCardModal';
@@ -41,7 +41,12 @@ const CardsPage = () => {
 	return (
 		<div>
 			<Row>
-				<Col className="h3">{`All cards in : ${deckName}`}</Col>
+				<Col className="h3">
+					{'All cards in : '}
+					<Badge color="warning" pill>
+						{deckName}
+					</Badge>
+				</Col>
 				<Button color="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
 					Add new Card
 				</Button>
