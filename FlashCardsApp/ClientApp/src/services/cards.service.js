@@ -29,12 +29,7 @@ export const getCards = async (token, id) => {
 const fetchCards = async (method, token, data, id) => {
 	const headers = getHeaders(token);
 	const url = getUrl(id);
-	try {
-		await fetcher(url, method, headers, data);
-	} catch (error) {
-		console.log(error);
-		return error;
-	}
+	await fetcher(url, method, headers, data);
 };
 
 const getUrl = (id) => {
