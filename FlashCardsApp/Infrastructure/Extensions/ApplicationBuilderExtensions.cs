@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using FlashCardsApp.Data;
+using FlashCardsApp.Data.Seeding;
 
 namespace FlashCardsApp.Infrastructure.Extensions
 {
@@ -15,6 +16,8 @@ namespace FlashCardsApp.Infrastructure.Extensions
             var dbContext = services.ServiceProvider.GetService<ApplicationDbContext>();
 
             dbContext.Database.Migrate();
+
+            new ApplicationDbContextSeeder().SeedAsync(dbContext, services.ServiceProvider).GetAwaiter().GetResult();
         }
     }
 }
