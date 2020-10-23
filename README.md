@@ -38,3 +38,6 @@ Main languages & libraries :
 	>"ApplicationSettings": {
     >"Secret": "Your secret here"
     >}
+
+- For test purposes the application makes initial data seeding, use credentials:
+	>UserName - firstUser, Password - 123456
