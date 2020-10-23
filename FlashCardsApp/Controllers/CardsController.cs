@@ -29,7 +29,12 @@ namespace FlashCardsApp.Controllers
         [Route("api/user/decks/{deckId}/cards")]
         public async Task<ActionResult> Create(int deckId, [FromBody] CreateCardInputModel input)
         {
-            await this.cardsService.CreateAsync(deckId, input.Term, input.Definition);
+            var success = await this.cardsService.CreateAsync(deckId, input.Term, input.Definition);
+
+            if (!success)
+            {
+                return this.BadRequest();
+            }
 
             return this.Ok();
         }

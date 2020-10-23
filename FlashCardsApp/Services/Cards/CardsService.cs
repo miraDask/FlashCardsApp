@@ -21,8 +21,15 @@ namespace FlashCardsApp.Services.Cards
             this.decksService = decksService;
         }
 
-        public async Task CreateAsync(int deckId, string term, string definition)
+        public async Task<bool> CreateAsync(int deckId, string term, string definition)
         {
+            var deckName = await this.decksService.GetDeckNameAsync(deckId);
+
+            if (deckName == null)
+            {
+                return false;
+            }
+
             var card = new Card
             {
                 Term = term,
@@ -32,6 +39,8 @@ namespace FlashCardsApp.Services.Cards
 
             await this.dbContext.AddAsync(card);
             await this.dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> DeleteAsync(int id)

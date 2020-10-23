@@ -8,7 +8,7 @@ namespace FlashCardsApp.Services.Cards
     {
         Task<AllCardsServiceModel> GetAllAsync(int deckId);
 
-        Task CreateAsync(int deckId, string term, string definition);
+        Task<bool> CreateAsync(int deckId, string term, string definition);
 
         Task<bool> UdateAsync(int id, string term, string definition);
 
