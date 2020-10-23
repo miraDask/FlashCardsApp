@@ -1,6 +1,6 @@
 # FlashCardsApp
 
-FlashCardsApp is simple web application for creating flash cards and decks to store them. The application is created with Asp .Net with React template. 
+FlashCardsApp is simple web application for creating flash cards and decks to store them. The application is created with Asp.Net Core with React.js template. 
 
 ## Table of Contents
 1. [Technology stack](https://github.com/miraDask/FlashCardsApp#technology-stack)
