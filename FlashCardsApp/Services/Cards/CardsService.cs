@@ -34,11 +34,19 @@ namespace FlashCardsApp.Services.Cards
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var card = await this.GetCardByIdAsync(id);
+
+            if (card == null)
+            {
+                return false;
+            }
+
             this.dbContext.Remove(card);
             await this.dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<AllCardsServiceModel> GetAllAsync(int deckId)
@@ -65,14 +73,22 @@ namespace FlashCardsApp.Services.Cards
             };
         }
 
-        public async Task UdateAsync(int id, string term, string definition)
+        public async Task<bool> UdateAsync(int id, string term, string definition)
         {
             var card = await this.GetCardByIdAsync(id);
+
+            if (card == null)
+            {
+                return false;
+            }
+
             card.Term = term;
             card.Definition = definition;
 
             this.dbContext.Update(card);
             await this.dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         private async Task<Card> GetCardByIdAsync(int id)

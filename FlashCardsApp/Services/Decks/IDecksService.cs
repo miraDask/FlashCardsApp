@@ -10,9 +10,9 @@ namespace FlashCardsApp.Services.Decks
 
         Task CreateAsync(string userId, string name, string description);
 
-        Task UdateAsync(int id, string name, string description);
+        Task<bool> UdateAsync(int id, string name, string description);
 
-        Task DeleteAsync(int id);
+        Task<bool> DeleteAsync(int id);
 
         Task<string> GetDeckNameAsync(int id);
     }

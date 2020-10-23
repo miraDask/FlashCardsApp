@@ -38,7 +38,12 @@ namespace FlashCardsApp.Controllers
         [Route("api/user/decks/{deckId}/cards")]
         public async Task<ActionResult> Update([FromBody] UpdateCardInputModel input)
         {
-            await this.cardsService.UdateAsync(input.Id, input.Term, input.Definition);
+            var updateSuccess = await this.cardsService.UdateAsync(input.Id, input.Term, input.Definition);
+
+            if (!updateSuccess)
+            {
+                return this.BadRequest();
+            }
 
             return this.Ok();
         }
@@ -47,7 +52,12 @@ namespace FlashCardsApp.Controllers
         [Route("api/user/decks/{deckId}/cards")]
         public async Task<ActionResult> Delete([FromBody] DeleteCardInputModel input)
         {
-            await this.cardsService.DeleteAsync(input.Id);
+            var deleteSuccess = await this.cardsService.DeleteAsync(input.Id);
+
+            if (!deleteSuccess)
+            {
+                return this.BadRequest();
+            }
 
             return this.Ok();
         }
