@@ -16,7 +16,7 @@ const initialUser = {
 };
 
 const RegisterForm = () => {
-	const { data, errors, setErrors, handleChange, handleOnBlur, handleSubmit } = useFormProcessor({}, initialUser);
+	const { data, errors, setErrors, handleChange, handleOnBlur, handleSubmit } = useFormProcessor(initialUser);
 	const { toggleLoggedIn, saveUser } = useContext(Context);
 	const history = useHistory();
 

@@ -15,7 +15,7 @@ const initialUser = {
 };
 
 const LoginForm = () => {
-	const { data, errors, setErrors, handleChange, handleSubmit } = useFormProcessor(initialUser, initialUser);
+	const { data, errors, setErrors, handleChange, handleSubmit } = useFormProcessor(initialUser);
 	const { toggleLoggedIn, saveUser } = useContext(Context);
 	const history = useHistory();
 

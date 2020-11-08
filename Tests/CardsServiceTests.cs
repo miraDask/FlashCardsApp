@@ -61,12 +61,12 @@ namespace Tests
             var cardId = await this.CreateCardAsync(deckId);
 
             var cardUpdatedTerm = "Test deck 1";
-            var cardUpdateddefinition = "this is test for deck 1";
-            var success = await this.Service.UdateAsync(cardId, cardUpdatedTerm, cardUpdateddefinition);
+            var cardUpdatedDefinition = "this is test for deck 1";
+            var success = await this.Service.UdateAsync(cardId, cardUpdatedTerm, cardUpdatedDefinition);
             var updatedCard = await this.DbContext.Cards.Where(x => x.Id == deckId).FirstOrDefaultAsync();
 
             Assert.Equal(cardUpdatedTerm, updatedCard.Term);
-            Assert.Equal(cardUpdateddefinition, updatedCard.Definition);
+            Assert.Equal(cardUpdatedDefinition, updatedCard.Definition);
             Assert.True(success);
         }
 
