@@ -9,8 +9,6 @@ FlashCardsApp is a simple web application for creating flash cards and decks to 
 
 ## Technology stack
 
-Main languages & libraries :
-
 ### Front End:
 
 - React
