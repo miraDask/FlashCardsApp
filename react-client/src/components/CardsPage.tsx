@@ -1,0 +1,91 @@
+import React, { useContext, useState, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { Context } from '../providers/global-context.provider';
+import { CardsContext } from '../providers/cards-context.provider';
+import { useParams } from 'react-router-dom';
+import { getCards } from '../services/cards.service';
+import { getCookie } from '../utils/cookie';
+
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Badge from 'react-bootstrap/Badge';
+import Spinner from 'react-bootstrap/Spinner';
+
+import CreateCardModal from './CreateCardModal';
+import CardContainer from './Card';
+import EditCardModal from './EditCardModal';
+import EmptyCollection from './EmptyCollection';
+
+import { ICard } from '../contracts/card';
+
+const PAGE_TEXT = 'All cards in : ';
+
+const CardsPage = () => {
+	const { toggleCreateCardModal } = useContext(Context);
+	const [ cards, setCards ] = useState([]);
+	const [ deckName, setDeckName ] = useState('');
+	const [ isLoading, setIsLoading ] = useState(true);
+	const { updatedCards } = useContext(CardsContext);
+	const history = useHistory();
+	const { deckId } = useParams<{ deckId: string }>();
+
+	const getAllCards = useCallback(
+		async () => {
+			const token = getCookie('x-auth-token');
+			const response = await getCards(token, deckId);
+
+			if (response.deckName === null) {
+				history.push(`/error`);
+			} else {
+				setCards(response.cards);
+				setDeckName(response.deckName);
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 100);
+			}
+		},
+		[ deckId, history ]
+	);
+
+	useEffect(
+		() => {
+			getAllCards();
+		},
+		[ getAllCards, updatedCards ]
+	);
+
+	const renderCards = () => {
+		return cards.map((c : ICard) => <CardContainer card={c} key={c.id} />);
+	};
+
+	const renderCollection = () => {
+		if (isLoading) {
+			return <Spinner variant="info" animation="border"/>;
+		}
+
+		return cards.length === 0 ? <EmptyCollection collectionName="cards" /> : renderCards();
+	};
+
+	return (
+		<div>
+			<Row>
+				<Col className="h3">
+					{PAGE_TEXT}
+					<Badge color="warning" pill>
+						{deckName}
+					</Badge>
+				</Col>
+				<Button variant="success" onClick={toggleCreateCardModal} className="mr-0 float-right">
+					Add Card
+				</Button>
+			</Row>
+			<Row className="mt-4">{renderCollection()}</Row>
+			<CreateCardModal deckId={deckId} />
+			<EditCardModal deckId={deckId} />
+		</div>
+	);
+};
+
+export default CardsPage;
