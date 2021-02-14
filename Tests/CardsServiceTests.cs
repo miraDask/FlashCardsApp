@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-using FlashCardsApp.Services.Cards;
-using FlashCardsApp.Data.Models;
-using FlashCardsApp.Models.Cards;
+using server.Services.Cards;
+using server.Data.Models;
+using server.Models.Cards;
 
 namespace Tests
 {
-    public class CardsServiceTests : Testsbase
+    public class CardsServiceTests : TestBase
     {
         private ICardsService Service => this.ServiceProvider.GetRequiredService<ICardsService>();
 
