@@ -30,6 +30,9 @@ const DeckForm = ({ handleFetchData, successFunc, children, deck } : Props) => {
 		() => {
 			if (deck) {
 				setData(deck);
+				console.log('deck', deck)
+				console.log('initialDeck', initialDeck)
+
 			}
 		},
 		[ deck, setData ]
